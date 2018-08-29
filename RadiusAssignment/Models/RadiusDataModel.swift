@@ -14,10 +14,6 @@ class RadiusDataModel: NSObject, Codable {
     enum CodingKeys: String, CodingKey {
         case object
     }
-    
-    required init(from decoder: Decoder) throws {
-        _ = try decoder.container(keyedBy: CodingKeys.self)
-    }
 }
 
 class RadiusObject: NSObject, Codable {
@@ -27,10 +23,6 @@ class RadiusObject: NSObject, Codable {
     enum CodingKeys: String, CodingKey {
         case facilities
         case exclusions
-    }
-    
-    required init(from decoder: Decoder) throws {
-        _ = try decoder.container(keyedBy: CodingKeys.self)
     }
 }
 
@@ -44,10 +36,6 @@ class RadiusFacility: NSObject, Codable {
         case name
         case options
     }
-    
-    required init(from decoder: Decoder) throws {
-        _ = try decoder.container(keyedBy: CodingKeys.self)
-    }
 }
 
 class Option: NSObject, Codable {
@@ -60,10 +48,6 @@ class Option: NSObject, Codable {
         case icon
         case id
     }
-    
-    required init(from decoder: Decoder) throws {
-        _ = try decoder.container(keyedBy: CodingKeys.self)
-    }
 }
 
 class RadiusExclusion: NSObject, Codable {
@@ -73,9 +57,5 @@ class RadiusExclusion: NSObject, Codable {
     enum CodingKeys: String, CodingKey {
         case facilityId = "facility_id"
         case optionsId = "options_id"
-    }
-    
-    required init(from decoder: Decoder) throws {
-        _ = try decoder.container(keyedBy: CodingKeys.self)
     }
 }

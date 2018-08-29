@@ -9,6 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var radiusViewModel: RadiusViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()

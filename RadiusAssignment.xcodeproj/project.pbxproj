@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		270564522135B59300434B80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270564512135B59300434B80 /* AppDelegate.swift */; };
-		270564542135B59300434B80 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270564532135B59300434B80 /* ViewController.swift */; };
+		270564542135B59300434B80 /* RadiusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270564532135B59300434B80 /* RadiusViewController.swift */; };
 		270564572135B59300434B80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 270564552135B59300434B80 /* Main.storyboard */; };
 		2705645A2135B59300434B80 /* RadiusAssignment.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 270564582135B59300434B80 /* RadiusAssignment.xcdatamodeld */; };
 		2705645C2135B59500434B80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2705645B2135B59500434B80 /* Assets.xcassets */; };
 		2705645F2135B59500434B80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2705645D2135B59500434B80 /* LaunchScreen.storyboard */; };
 		2705646A2135B59500434B80 /* RadiusAssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270564692135B59500434B80 /* RadiusAssignmentTests.swift */; };
 		2724A7762136650B0061F7AE /* RadiusDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724A7752136650B0061F7AE /* RadiusDataModel.swift */; };
+		2724A77921366BCC0061F7AE /* RadiusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724A77821366BCC0061F7AE /* RadiusViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +31,7 @@
 /* Begin PBXFileReference section */
 		2705644E2135B59300434B80 /* RadiusAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RadiusAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		270564512135B59300434B80 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		270564532135B59300434B80 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		270564532135B59300434B80 /* RadiusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusViewController.swift; sourceTree = "<group>"; };
 		270564562135B59300434B80 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		270564592135B59300434B80 /* RadiusAssignment.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RadiusAssignment.xcdatamodel; sourceTree = "<group>"; };
 		2705645B2135B59500434B80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -40,6 +41,7 @@
 		270564692135B59500434B80 /* RadiusAssignmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusAssignmentTests.swift; sourceTree = "<group>"; };
 		2705646B2135B59500434B80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2724A7752136650B0061F7AE /* RadiusDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusDataModel.swift; sourceTree = "<group>"; };
+		2724A77821366BCC0061F7AE /* RadiusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,9 +83,9 @@
 		270564502135B59300434B80 /* RadiusAssignment */ = {
 			isa = PBXGroup;
 			children = (
+				2724A77721366BAA0061F7AE /* Radius */,
 				2724A774213664DC0061F7AE /* Models */,
 				270564512135B59300434B80 /* AppDelegate.swift */,
-				270564532135B59300434B80 /* ViewController.swift */,
 				270564552135B59300434B80 /* Main.storyboard */,
 				2705645B2135B59500434B80 /* Assets.xcassets */,
 				2705645D2135B59500434B80 /* LaunchScreen.storyboard */,
@@ -108,6 +110,15 @@
 				2724A7752136650B0061F7AE /* RadiusDataModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		2724A77721366BAA0061F7AE /* Radius */ = {
+			isa = PBXGroup;
+			children = (
+				270564532135B59300434B80 /* RadiusViewController.swift */,
+				2724A77821366BCC0061F7AE /* RadiusViewModel.swift */,
+			);
+			path = Radius;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,7 +223,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2705645A2135B59300434B80 /* RadiusAssignment.xcdatamodeld in Sources */,
-				270564542135B59300434B80 /* ViewController.swift in Sources */,
+				270564542135B59300434B80 /* RadiusViewController.swift in Sources */,
+				2724A77921366BCC0061F7AE /* RadiusViewModel.swift in Sources */,
 				270564522135B59300434B80 /* AppDelegate.swift in Sources */,
 				2724A7762136650B0061F7AE /* RadiusDataModel.swift in Sources */,
 			);
