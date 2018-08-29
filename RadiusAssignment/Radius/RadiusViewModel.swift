@@ -42,4 +42,7 @@ class RadiusViewModel {
         return self.radius?.facilities[section].options.count
     }
     
+    func getSectionHeader(forSection section: Int) -> String? {
+        return self.radius?.facilities[section].name
+    }
 }

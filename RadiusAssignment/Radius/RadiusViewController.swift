@@ -49,6 +49,14 @@ class RadiusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return numberOfRows
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var title: String = ""
+        if let headerTitle = radiusViewModel?.getSectionHeader(forSection: section) {
+            title = headerTitle
+        }
+        return title
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "RadiusCell") ?? UITableViewCell(style: .default, reuseIdentifier: "RadiusCell")
         if indexPath.section == 0 {
