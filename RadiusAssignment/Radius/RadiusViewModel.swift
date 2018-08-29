@@ -8,21 +8,38 @@
 
 import Foundation
 
+protocol RadiusViewModelDelegate: class {
+    func loadTableView()
+}
+
 class RadiusViewModel {
     
-    func fetchRadiusData() {
+    var radius: RadiusObject?
+    var delegate: RadiusViewModelDelegate?
+    
+    func fetchRadiusData(fromURL url: String) {
         
-        guard let url = URL(string: "https://my-json-server.typicode.com/iranjith4/ad-assignment/db") else { return }
-        URLSession.shared.dataTask(with: url) { (data, response
+        guard let urlString = URL(string: url) else { return }
+        URLSession.shared.dataTask(with: urlString) { (data, response
             , error) in
             guard let data = data else { return }
             do {
-                let radiusData = try? JSONDecoder().decode(RadiusObject.self, from: data)
-                print(radiusData)
+                if let radiusObject = try? JSONDecoder().decode(RadiusObject.self, from: data) {
+                    self.radius = radiusObject
+                    self.delegate?.loadTableView()
+                }
             } catch let error {
                 print(error.localizedDescription)
             }
             }.resume()
+    }
+    
+    func getNumberOfSections() -> Int? {
+        return self.radius?.facilities.count
+    }
+    
+    func getNumberOfRows(forSection section: Int) -> Int? {
+        return self.radius?.facilities[section].options.count
     }
     
 }

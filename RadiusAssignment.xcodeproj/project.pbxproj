@@ -16,6 +16,7 @@
 		2705646A2135B59500434B80 /* RadiusAssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270564692135B59500434B80 /* RadiusAssignmentTests.swift */; };
 		2724A7762136650B0061F7AE /* RadiusDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724A7752136650B0061F7AE /* RadiusDataModel.swift */; };
 		2724A77921366BCC0061F7AE /* RadiusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724A77821366BCC0061F7AE /* RadiusViewModel.swift */; };
+		2724A77D21371F6F0061F7AE /* RadiusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724A77C21371F6F0061F7AE /* RadiusTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		2705646B2135B59500434B80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2724A7752136650B0061F7AE /* RadiusDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusDataModel.swift; sourceTree = "<group>"; };
 		2724A77821366BCC0061F7AE /* RadiusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusViewModel.swift; sourceTree = "<group>"; };
+		2724A77C21371F6F0061F7AE /* RadiusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 			children = (
 				270564532135B59300434B80 /* RadiusViewController.swift */,
 				2724A77821366BCC0061F7AE /* RadiusViewModel.swift */,
+				2724A77C21371F6F0061F7AE /* RadiusTableViewCell.swift */,
 			);
 			path = Radius;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				2705645A2135B59300434B80 /* RadiusAssignment.xcdatamodeld in Sources */,
 				270564542135B59300434B80 /* RadiusViewController.swift in Sources */,
 				2724A77921366BCC0061F7AE /* RadiusViewModel.swift in Sources */,
+				2724A77D21371F6F0061F7AE /* RadiusTableViewCell.swift in Sources */,
 				270564522135B59300434B80 /* AppDelegate.swift in Sources */,
 				2724A7762136650B0061F7AE /* RadiusDataModel.swift in Sources */,
 			);
