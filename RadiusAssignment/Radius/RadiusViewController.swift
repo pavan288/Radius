@@ -12,12 +12,13 @@ class RadiusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var radiusViewModel: RadiusViewModel?
     @IBOutlet weak var radiusTableView: UITableView!
-
-
+    @IBOutlet weak var loader: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         radiusViewModel = RadiusViewModel()
+        loader.startAnimating()
         radiusViewModel?.fetchRadiusData(fromURL: "https://my-json-server.typicode.com/iranjith4/ad-assignment/db")
         self.radiusViewModel?.delegate = self
     }
@@ -30,6 +31,7 @@ class RadiusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func loadTableView() {
         DispatchQueue.main.async {
             self.radiusTableView.reloadData()
+            self.loader.stopAnimating()
         }
     }
     
@@ -58,13 +60,21 @@ class RadiusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "RadiusCell") ?? UITableViewCell(style: .default, reuseIdentifier: "RadiusCell")
+        let cell: RadiusTableViewCell = tableView.dequeueReusableCell(withIdentifier: "RadiusCell", for: indexPath) as! RadiusTableViewCell // ?? UITableViewCell(style: .default, reuseIdentifier: "RadiusCell")
         if indexPath.section == 0 {
             print(indexPath.section)
+            cell.radiusCellLabel?.text = radiusViewModel?.radius?.facilities[indexPath.section].options[indexPath.row].name
+            if let imageName = radiusViewModel?.radius?.facilities[indexPath.section].options[indexPath.row].icon {
+                cell.radiusCellImage?.image = UIImage(named: imageName)
+            }
         } else if indexPath.section == 1 {
             print(indexPath.section)
+            cell.radiusCellLabel.text = radiusViewModel?.radius?.facilities[indexPath.section].options[indexPath.row].name
+            cell.radiusCellImage?.image = nil
         } else {
             print(indexPath.section)
+            cell.radiusCellLabel.text = radiusViewModel?.radius?.facilities[indexPath.section].options[indexPath.row].name
+            cell.radiusCellImage?.image = nil
         }
         return cell
     }

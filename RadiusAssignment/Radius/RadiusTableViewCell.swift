@@ -9,10 +9,9 @@
 import UIKit
 
 class RadiusTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var facilityLabel: UILabel!
-    @IBOutlet weak var facilityImage: UIImageView!
-    
+
+    @IBOutlet weak var radiusCellLabel: UILabel!
+    @IBOutlet weak var radiusCellImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
