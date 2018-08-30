@@ -60,27 +60,40 @@ class RadiusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: RadiusTableViewCell = tableView.dequeueReusableCell(withIdentifier: "RadiusCell", for: indexPath) as! RadiusTableViewCell // ?? UITableViewCell(style: .default, reuseIdentifier: "RadiusCell")
+        let cell: RadiusTableViewCell = tableView.dequeueReusableCell(withIdentifier: "RadiusCell", for: indexPath) as! RadiusTableViewCell
         
         switch indexPath.section {
         case 0:
-            print(indexPath.section)
             cell.radiusCellLabel?.text = radiusViewModel?.radius?.facilities[indexPath.section].options[indexPath.row].name
+            if let cellId = radiusViewModel?.radius?.facilities[indexPath.section].options[indexPath.row].id,
+                let facilityId = radiusViewModel?.radius?.facilities[indexPath.section].facilityId {
+                cell.id = cellId
+                cell.facilityId = facilityId
+            }
             if let imageName = radiusViewModel?.radius?.facilities[indexPath.section].options[indexPath.row].icon {
                 cell.radiusCellImage?.image = UIImage(named: imageName)
             }
-        case 1:
-            print(indexPath.section)
+            
+        case 1,2:
             cell.radiusCellLabel.text = radiusViewModel?.radius?.facilities[indexPath.section].options[indexPath.row].name
             cell.radiusCellImage?.image = nil
-        case 2:
-            print(indexPath.section)
-            cell.radiusCellLabel.text = radiusViewModel?.radius?.facilities[indexPath.section].options[indexPath.row].name
-            cell.radiusCellImage?.image = nil
+            if let cellId = radiusViewModel?.radius?.facilities[indexPath.section].options[indexPath.row].id,
+                let facilityId = radiusViewModel?.radius?.facilities[indexPath.section].facilityId {
+                cell.id = cellId
+                cell.facilityId = facilityId
+            }
         default:
             break
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell: RadiusTableViewCell = tableView.cellForRow(at: indexPath) as! RadiusTableViewCell
+//        print(indexPath.section)
+//        print(indexPath.row)
+//        print(cell.id!)
+        print(cell.facilityId!)
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {

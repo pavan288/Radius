@@ -12,6 +12,8 @@ class RadiusTableViewCell: UITableViewCell {
 
     @IBOutlet weak var radiusCellLabel: UILabel!
     @IBOutlet weak var radiusCellImage: UIImageView!
+    var id: String?
+    var facilityId: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
