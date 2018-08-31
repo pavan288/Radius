@@ -69,19 +69,6 @@ class Option: NSObject, Codable {
     }
 }
 
-class RadiusExclusions: NSObject, Decodable {
-    var exclusion: [RadiusExclusion]
-    
-    enum CodingKeys: String, CodingKey {
-        case exclusion
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let codingValues = try decoder.container(keyedBy: CodingKeys.self)
-        self.exclusion = try codingValues.decode([RadiusExclusion].self, forKey: .exclusion)
-    }
-}
-
 class RadiusExclusion: NSObject, Decodable {
     var facilityId: Int?
     var optionsId: Int?

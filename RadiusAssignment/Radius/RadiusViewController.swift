@@ -79,8 +79,8 @@ class RadiusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tappedCell: RadiusTableViewCell = tableView.cellForRow(at: indexPath) as? RadiusTableViewCell else { return }
-        guard let id = Int(tappedCell.facilityId!) else { return }
-        radiusViewModel?.excludeOptions(for: (indexPath.row + 1))
+        guard let id = Int(tappedCell.id!) else { return }
+        radiusViewModel?.excludeOptions(forFacilityId: id)
         tableView.reloadData()
     }
     
