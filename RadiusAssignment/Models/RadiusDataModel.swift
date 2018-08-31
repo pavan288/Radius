@@ -49,8 +49,9 @@ class RadiusFacility: NSObject, Decodable {
 
 class Option: NSObject, Codable {
     var name: String
-    var icon: String
-    var id: String
+    var icon: String?
+    var id: Int?
+    var isEnabled: Bool = true
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -61,9 +62,10 @@ class Option: NSObject, Codable {
     required init(from decoder: Decoder) throws {
         let codingValues = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try codingValues.decode(String.self, forKey: .name)
-        self.icon = try codingValues.decode(String.self, forKey: .icon)
-        self.id = try codingValues.decode(String.self, forKey: .id)
-        
+        self.icon = try? codingValues.decode(String.self, forKey: .icon)
+        if let id = try? codingValues.decode(String.self, forKey: .id) {
+            self.id = Int(id)
+        }
     }
 }
 
@@ -81,8 +83,8 @@ class RadiusExclusions: NSObject, Decodable {
 }
 
 class RadiusExclusion: NSObject, Decodable {
-    var facilityId: String
-    var optionsId: String
+    var facilityId: Int?
+    var optionsId: Int?
     
     enum CodingKeys: String, CodingKey {
         case facilityId = "facility_id"
@@ -91,7 +93,11 @@ class RadiusExclusion: NSObject, Decodable {
     
     required init(from decoder: Decoder) throws {
         let codingValues = try decoder.container(keyedBy: CodingKeys.self)
-        self.facilityId = try codingValues.decode(String.self, forKey: .facilityId)
-        self.optionsId = try codingValues.decode(String.self, forKey: .optionsId)
+        if let facilityID = try? codingValues.decode(String.self, forKey: .facilityId) {
+            self.facilityId = Int(facilityID)
+        }
+        if let optionID = try? codingValues.decode(String.self, forKey: .optionsId) {
+            self.optionsId = Int(optionID)
+        }
     }
 }

@@ -24,10 +24,9 @@ class RadiusViewModel {
             , error) in
             guard let data = data else { return }
             do {
-                if let radiusObject = try? JSONDecoder().decode(RadiusObject.self, from: data) {
-                    self.radius = radiusObject
-                    self.delegate?.loadTableView()
-                }
+                self.radius = try JSONDecoder().decode(RadiusObject.self, from: data)
+                self.delegate?.loadTableView()
+                
             } catch let error {
                 print(error.localizedDescription)
             }
@@ -44,5 +43,22 @@ class RadiusViewModel {
     
     func getSectionHeader(forSection section: Int) -> String? {
         return self.radius?.facilities[section].name
+    }
+    
+    func excludeOptions(for indexPathRow: Int) {
+        guard let exclusionsArray = (self.radius?.exclusions.map{ $0.map{$0.optionsId} }) else { return }
+        guard let options = self.radius?.facilities.flatMap({ $0.options }) else { return }
+        
+        for option in options {
+            option.isEnabled = true
+        }
+        
+        for exclusion in exclusionsArray {
+            guard let selected = exclusion.first, let selectedValue = selected, let excluded = exclusion.last,let excludedValue = excluded else { return }
+            let option = options.filter{$0.id == excludedValue}
+            if indexPathRow == selectedValue {
+                option.first?.isEnabled = false
+            }
+        }
     }
 }
