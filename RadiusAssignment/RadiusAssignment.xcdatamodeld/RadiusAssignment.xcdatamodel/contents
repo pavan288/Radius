@@ -3,6 +3,7 @@
     <entity name="Exclusion" representedClassName="Exclusion" syncable="YES" codeGenerationType="class">
         <attribute name="facilityId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="optionsId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" syncable="YES"/>
     </entity>
     <entity name="Option" representedClassName="Option" syncable="YES" codeGenerationType="class">
         <attribute name="icon" optional="YES" attributeType="String" syncable="YES"/>
@@ -12,10 +13,15 @@
     <entity name="RadiusFacility" representedClassName="RadiusFacility" syncable="YES" codeGenerationType="class">
         <attribute name="facilityId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="has" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Option" syncable="YES"/>
+    </entity>
+    <entity name="RadiusObject" representedClassName="RadiusObject" syncable="YES" codeGenerationType="class">
+        <relationship name="has" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RadiusFacility" syncable="YES"/>
     </entity>
     <elements>
-        <element name="RadiusFacility" positionX="-63" positionY="-18" width="128" height="75"/>
-        <element name="Option" positionX="-54" positionY="9" width="128" height="90"/>
-        <element name="Exclusion" positionX="-36" positionY="18" width="128" height="75"/>
+        <element name="RadiusFacility" positionX="-245" positionY="-234" width="128" height="88"/>
+        <element name="Option" positionX="-432" positionY="-9" width="128" height="88"/>
+        <element name="Exclusion" positionX="-92" positionY="-21" width="128" height="88"/>
+        <element name="RadiusObject" positionX="-234" positionY="-72" width="128" height="60"/>
     </elements>
 </model>
