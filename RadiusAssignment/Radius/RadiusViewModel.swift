@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 protocol RadiusViewModelDelegate: class {
     func loadTableView()
@@ -18,6 +19,8 @@ class RadiusViewModel {
     var radius: RadiusObject?
     var delegate: RadiusViewModelDelegate?
     
+    var coreDataRadius: [NSManagedObject]?
+    
     func fetchRadiusData(fromURL url: String) {
         
         guard let urlString = URL(string: url) else { return }
@@ -27,7 +30,6 @@ class RadiusViewModel {
             do {
                 self.radius = try JSONDecoder().decode(RadiusObject.self, from: data)
                 self.delegate?.loadTableView()
-                
             } catch let error {
                 print(error.localizedDescription)
             }
@@ -60,5 +62,29 @@ class RadiusViewModel {
                 option.first?.isEnabled = false
             }
         }
+    }
+}
+
+extension RadiusViewModel {
+    func getContext() -> NSManagedObjectContext {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.persistentContainer.viewContext
+    }
+    
+    func getManagedObject(forEntity entityString: String, withContext context: NSManagedObjectContext) -> NSManagedObject? {
+        return NSEntityDescription.insertNewObject(forEntityName: entityString, into: context)
+    }
+    
+    func save(object radius:String) -> Bool {
+        let context = getContext()
+        if let jsonManagedObject = getManagedObject(forEntity: "Json", withContext: context) {
+            jsonManagedObject.setValue(radius, forKey: "jsonString")
+            do {
+                try context.save()
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
+        }
+        return false
     }
 }
