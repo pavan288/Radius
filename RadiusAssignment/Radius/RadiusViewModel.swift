@@ -54,18 +54,23 @@ class RadiusViewModel {
     
     func excludeOptions(forFacilityId facilityID: Int) {
         guard let exclusionsArray = (self.radius?.exclusions.map{ $0.map{$0.optionsId} }) else { return }
-        guard let options = self.radius?.facilities.flatMap({ $0.options }) else { return }
-        
-        for option in options {
-            option.isEnabled = true
-        }
+        let options = self.enableAllOptions()
         
         for exclusion in exclusionsArray {
             if exclusion.first! == facilityID {
-                let option = options.filter{$0.id == exclusion.last!}
-                option.first?.isEnabled = false
+                if let option = options?.filter({$0.id == exclusion.last!}) {
+                    option.first?.isEnabled = false
+                }
             }
         }
+    }
+    
+    func enableAllOptions() -> [Option]? {
+        guard let options = self.radius?.facilities.flatMap({ $0.options }) else { return nil }
+        for option in options {
+            option.isEnabled = true
+        }
+        return options
     }
     
     func parseCoreData() {
