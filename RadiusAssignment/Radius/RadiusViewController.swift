@@ -14,13 +14,25 @@ class RadiusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var radiusTableView: UITableView!
     @IBOutlet weak var loader: UIActivityIndicatorView!
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(self.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.red
+        
+        return refreshControl
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         radiusViewModel = RadiusViewModel()
         loader.startAnimating()
-        radiusViewModel?.fetchRadiusData(fromURL: "https://my-json-server.typicode.com/iranjith4/ad-assignment/db")
+        radiusViewModel?.parseCoreData()
         self.radiusViewModel?.delegate = self
+        self.radiusTableView.addSubview(self.refreshControl)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,6 +105,12 @@ class RadiusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         return indexPath
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        radiusViewModel?.parseCoreData()
+        self.radiusTableView.reloadData()
+        refreshControl.endRefreshing()
     }
 
 

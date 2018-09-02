@@ -18,21 +18,25 @@ class RadiusViewModel {
     
     var radius: RadiusObject?
     var delegate: RadiusViewModelDelegate?
-    
-    var coreDataRadius: [NSManagedObject]?
+    fileprivate var context: NSManagedObjectContext?
+    fileprivate var coreDataRadius: [NSManagedObject]?
+    var refreshRequired: Bool = true
+    var lastRefreshDate: Date?
+    var currentDate: Date {
+        return Date()
+    }
     
     func fetchRadiusData(fromURL url: String) {
-        
         guard let urlString = URL(string: url) else { return }
+        let context = getContext()
         URLSession.shared.dataTask(with: urlString) { (data, response
             , error) in
             guard let data = data else { return }
-            do {
-                self.radius = try JSONDecoder().decode(RadiusObject.self, from: data)
-                self.delegate?.loadTableView()
-            } catch let error {
-                print(error.localizedDescription)
-            }
+            guard let responseString = String(data: data, encoding: .utf8) else { return }
+            self.lastRefreshDate = self.currentDate
+            _ = self.save(radius: responseString, inObject: "Json", inContext: context)
+            self.coreDataRadius = self.fetch(object: "Json", fromContext: context)!
+            self.populateModel()
             }.resume()
     }
     
@@ -63,9 +67,42 @@ class RadiusViewModel {
             }
         }
     }
+    
+    func parseCoreData() {
+        if let lastdate = self.lastRefreshDate {
+            refreshRequired = self.checkIfRefreshRequired(date1: currentDate, date2: lastdate)
+        }
+        if refreshRequired {
+            self.fetchRadiusData(fromURL: "https://my-json-server.typicode.com/iranjith4/ad-assignment/db")
+        } else {
+            self.populateModel()
+        }
+    }
+    
+    func populateModel() {
+        if let localJsonString = self.coreDataRadius?.first?.value(forKey: "jsonString") as? String,
+            let localData = localJsonString.data(using: .utf8) {
+            do {
+                self.radius = try JSONDecoder().decode(RadiusObject.self, from: localData)
+            } catch let error as NSError {
+                print("Could not delete. \(error), \(error.userInfo)")
+            }
+        }
+        self.delegate?.loadTableView()
+        self.refreshRequired = false
+    }
+    
+    func checkIfRefreshRequired(date1: Date, date2: Date) -> Bool {
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let datesAreInTheSameDay = calendar.isDate(date1, equalTo: date2, toGranularity:.day)
+
+        return !datesAreInTheSameDay
+    }
 }
 
 extension RadiusViewModel {
+    
     func getContext() -> NSManagedObjectContext {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer.viewContext
@@ -75,16 +112,38 @@ extension RadiusViewModel {
         return NSEntityDescription.insertNewObject(forEntityName: entityString, into: context)
     }
     
-    func save(object radius:String) -> Bool {
-        let context = getContext()
-        if let jsonManagedObject = getManagedObject(forEntity: "Json", withContext: context) {
+    func save(radius:String, inObject object: String, inContext context: NSManagedObjectContext) -> Bool {
+        
+        //replace existing response
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Json")
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
+        do {
+            try context.execute(batchDeleteRequest)
+        } catch let error as NSError {
+            print("Could not delete. \(error), \(error.userInfo)")
+        }
+        
+        if let jsonManagedObject = getManagedObject(forEntity: object, withContext: context) {
             jsonManagedObject.setValue(radius, forKey: "jsonString")
             do {
                 try context.save()
+                return true
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
         }
         return false
+    }
+    
+    func fetch(object radius: String, fromContext context: NSManagedObjectContext) -> [NSManagedObject]? {
+        let request = NSFetchRequest<NSManagedObject>(entityName: radius)
+        request.returnsObjectsAsFaults = false
+        do {
+            let results = try context.fetch(request)
+            return results
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        return nil
     }
 }
