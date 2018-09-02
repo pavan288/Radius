@@ -1,34 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Exclusion" representedClassName="Exclusion" syncable="YES" codeGenerationType="class">
-        <attribute name="facilityId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="optionsId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="belongsToObject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Object" inverseName="hasExclusion" inverseEntity="Object" syncable="YES"/>
-    </entity>
-    <entity name="Facility" representedClassName="Facility" syncable="YES" codeGenerationType="class">
-        <attribute name="facilityId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="belongsToObject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Object" inverseName="hasFacility" inverseEntity="Object" syncable="YES"/>
-        <relationship name="has" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RadiusOption" inverseName="belongsTo" inverseEntity="RadiusOption" syncable="YES"/>
-    </entity>
     <entity name="Json" representedClassName="Json" syncable="YES" codeGenerationType="class">
         <attribute name="jsonString" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Object" representedClassName="Object" syncable="YES" codeGenerationType="class">
-        <relationship name="hasExclusion" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exclusion" inverseName="belongsToObject" inverseEntity="Exclusion" syncable="YES"/>
-        <relationship name="hasFacility" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Facility" inverseName="belongsToObject" inverseEntity="Facility" syncable="YES"/>
-    </entity>
-    <entity name="RadiusOption" representedClassName="RadiusOption" syncable="YES" codeGenerationType="class">
-        <attribute name="icon" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="belongsTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Facility" inverseName="has" inverseEntity="Facility" syncable="YES"/>
-    </entity>
     <elements>
-        <element name="Facility" positionX="-594" positionY="-162" width="128" height="28"/>
-        <element name="Exclusion" positionX="-252" positionY="99" width="128" height="28"/>
-        <element name="Object" positionX="-605" positionY="-294" width="128" height="28"/>
-        <element name="RadiusOption" positionX="-578" positionY="27" width="128" height="105"/>
         <element name="Json" positionX="-387" positionY="-99" width="128" height="60"/>
     </elements>
 </model>
