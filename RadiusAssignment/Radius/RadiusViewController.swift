@@ -86,12 +86,6 @@ class RadiusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.radiusCellLabel.isEnabled  = shouldDisableCell
             cell.isUserInteractionEnabled = shouldDisableCell
         }
-        
-//        if cell.chosen {
-//            cell.setSelected(true, animated: false)
-//        } else {
-//            cell.setSelected(false, animated: false)
-//        }
         return cell
     }
     
@@ -99,7 +93,6 @@ class RadiusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         guard let tappedCell: RadiusTableViewCell = tableView.cellForRow(at: indexPath) as? RadiusTableViewCell else { return }
         guard let id = Int(tappedCell.id!) else { return }
         radiusViewModel?.excludeOptions(forFacilityId: id)
-//        tableView.reloadData()
         
         switch indexPath.section {
         case 0:
@@ -111,7 +104,6 @@ class RadiusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         default:
             break
         }
-        tableView.reloadSections(IndexSet(integersIn: 1...2), with: UITableViewRowAnimation.none)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
